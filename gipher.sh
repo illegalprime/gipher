@@ -37,7 +37,7 @@ search_subs() {
 
 
 cleanup() {
-    if [[ -f "$SHORTFILE" ]]; then
+    if [[ -f "${SHORTFILE:-}" ]]; then
         rm -f "$SHORTFILE"
     fi
 }
@@ -55,7 +55,7 @@ main() {
     EXTENSION="${FILENAME##*.}"
     SHORTFILE="$(mktemp -u XXXXXX."${EXTENSION}")"
 
-    ln -f "$INPUT" "$SHORTFILE"
+    ln -sf "$INPUT" "$SHORTFILE"
     INPUT="$SHORTFILE"
 
     SUBS=$(grab_subs "$INPUT")
