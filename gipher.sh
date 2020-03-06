@@ -36,6 +36,13 @@ search_subs() {
 }
 
 
+cleanup() {
+    if [[ -f "$SHORTFILE" ]]; then
+        rm -f "$SHORTFILE"
+    fi
+}
+
+
 main() {
     INPUT="$1"
     OUTPUT="$2"
@@ -43,6 +50,13 @@ main() {
     if [[ -d "$INPUT" ]]; then
         INPUT=$(find "$INPUT" -type f | fzf +m)
     fi
+
+    FILENAME=$(basename -- "$INPUT")
+    EXTENSION="${FILENAME##*.}"
+    SHORTFILE="$(mktemp -u XXXXXX."${EXTENSION}")"
+
+    ln -f "$INPUT" "$SHORTFILE"
+    INPUT="$SHORTFILE"
 
     SUBS=$(grab_subs "$INPUT")
 
@@ -54,5 +68,7 @@ main() {
     gif "$INPUT" "$START" "$END" "$OUTPUT"
 }
 
+
+trap cleanup INT TERM EXIT
 
 main "$@"

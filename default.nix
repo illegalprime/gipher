@@ -1,5 +1,5 @@
 { stdenv, lib, makeWrapper,
-  bash, coreutils, gnugrep, gawk, findutils, fzf, ffmpeg-full
+  bash, coreutils, gnugrep, gawk, gnused, findutils, fzf, ffmpeg-full
 }:
 
 stdenv.mkDerivation {
@@ -22,6 +22,7 @@ stdenv.mkDerivation {
       gnugrep
       gawk
       findutils
+      gnused
     ];
   in ''
     makeWrapper $src $out/bin/gipher \
