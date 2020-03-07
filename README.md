@@ -13,3 +13,6 @@ result/bin/gipher  PATH_TO_VIDEO  OUTPUT_FILE
 open OUTPUT_FILE.gif
 ```
 
+<p align="center">
+  <img src="sample.gif" title="bones">
+</p>
