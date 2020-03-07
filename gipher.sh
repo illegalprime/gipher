@@ -8,9 +8,13 @@ grab_subs() {
 
 
 gif() {
+    # TODO: use subtitles from external srt files
+    local style='FontName=Impact,FontSize=36'
+    local scale='scale=512:-1,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse'
+    local subtitles="subtitles=$1:fontsdir=${FONTPATH}:force_style='$style'"
     ffmpeg \
         -y -i "$1" -r 15 \
-        -vf "subtitles=$1, scale=512:-1,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" \
+        -vf "$subtitles, $scale" \
         -ss "$2" -to "$3" \
         "${4}.gif"
 }

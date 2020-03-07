@@ -1,5 +1,6 @@
 { stdenv, lib, makeWrapper,
-  bash, coreutils, gnugrep, gawk, gnused, findutils, fzf, ffmpeg-full
+  bash, coreutils, gnugrep, gawk, gnused, findutils,
+  fzf, ffmpeg-full, corefonts
 }:
 
 stdenv.mkDerivation {
@@ -26,6 +27,7 @@ stdenv.mkDerivation {
     ];
   in ''
     makeWrapper $src $out/bin/gipher \
-      --set PATH "${lib.makeBinPath deps}"
+      --set PATH "${lib.makeBinPath deps}" \
+      --set FONTPATH ${corefonts}/share/fonts/truetype
   '';
 }
